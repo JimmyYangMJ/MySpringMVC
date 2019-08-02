@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学生</title>
+    <script type="text/javascript" src="/js/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        function register() {
+            alert("start.1.0");
+            <!-- 表单提交 -->
+            var url = '/stu/save.do';
+            var name = $('#name').val();
+            var sex = $('#sex').val();
+            var jsonOGJ = {name:name, sex:sex};
+
+            // 把json对象转为字符串
+            var parameters = JSON.stringify(jsonOGJ);
+
+            console.log(jsonOGJ);
+            console.log(parameters);
+            alert("5");
+
+            $.ajax({
+                type:'post',
+                url:url,
+                contentType:'application/json; charset=utf-8',
+                data:parameters,
+                success:function (respData) {
+                    console.log(respData);
+                }
+            })
+
+        }
+    </script>
+</head>
+<body>
+<!-- 请求头为 application/x-www-form-urlencoded 》》》name=ymj&sex=male
+        application/json 》》 {"name"："ymj", "sex":"male"}-->
+<form action="/stu/save.do" method="get">
+    学生名字：<input id="name" type="text" name="name"><br>
+    性别：<input id="sex" type="text" name="sex"><br>
+    <input type="button" value="提交json数据" onclick="register()">
+    <input type="submit">
+</form>
+</body>
+</html>
